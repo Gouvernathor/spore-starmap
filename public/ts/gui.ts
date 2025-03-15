@@ -111,21 +111,19 @@ export default class GuiManager {
     }
 
     private onWindowFocus(event: FocusEvent) {
-        this.checkMouseOverUIPanel(event.clientX, event.clientY);
+        // this.checkMouseOverUIPanel(event.clientX, event.clientY);
     }
 
     private checkMouseOverUIPanel(x: number, y: number) {
-        try {
-            const elementUnderMouse = document.elementFromPoint(x, y);
+        const elementUnderMouse = document.elementFromPoint(x, y);
 
-            for (const panel of document.getElementsByClassName("panel")) {
-                if (panel.contains(elementUnderMouse)) {
-                    this.isMouseOnUIPanel = true;
-                    return;
-                }
+        for (const panel of document.getElementsByClassName("panel")) {
+            if (panel.contains(elementUnderMouse)) {
+                this.isMouseOnUIPanel = true;
+                return;
             }
-            this.isMouseOnUIPanel = false;
-        } catch (e) {}
+        }
+        this.isMouseOnUIPanel = false;
     }
 
     private showLoadingOverlay() {

@@ -1,0 +1,12 @@
+convert all to typescript
+keep easy deployment using a single npm start / npm run command
+destroy the various class-modules to simple modules
+use space-3D as a skybox
+add a menu (space-scene-2d) to customize star system appearances (blackholes in particular)
+add a menu to search for star systems, with toggles for categories
+import three, and optionally OrbitControls and FlyControls, the npm way
+add polar (in-game) coordinates + elevation on star system cards in addition/replacement to the xyz coordinates
+stop rotation when long click
+option (enabled by default) to only show one star panel at a time
+
+an archetype/philosophy calculator (and type/data system)

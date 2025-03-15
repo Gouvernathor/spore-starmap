@@ -238,6 +238,8 @@ export default class GuiManager {
             document.getElementById("loading-overlay")!.style.display = "none";
         }
 
+        // this.checkMouseOverUIPanel(cursorPos.x, cursorPos.y);
+
         // Update reference to object currently pointed by the cursor
         this.pointedObject = pointedObject;
 

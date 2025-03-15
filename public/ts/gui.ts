@@ -48,7 +48,10 @@ export default class GuiManager {
 
     private isMouseOnUIPanel = false;
 
-    constructor() {
+    constructor(
+        // dependency injection
+        private readonly jsPanel: any,
+    ) {
         // start hidden
         this.propsPanel.style.visibility = "hidden";
 
@@ -159,7 +162,7 @@ export default class GuiManager {
     }
 
     private createFileUploadPanel() {
-        jsPanel.create({
+        this.jsPanel.create({
             config: GuiManager.JSPANEL_CONFIG,
             snap: true,
             headerTitle: "StarMap",
@@ -177,7 +180,7 @@ export default class GuiManager {
         }
 
         const guiManager = this;
-        jsPanel.create({
+        this.jsPanel.create({
             config: GuiManager.JSPANEL_CONFIG,
 
             position: {

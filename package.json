@@ -9,7 +9,10 @@
     "qfs-compression": "^0.2.1"
   },
   "devDependencies": {
-    "nodemon": "^3.0.3"
+    "@types/node": "^22.13.10",
+    "nodemon": "^3.0.3",
+    "tsup": "^8.4.0",
+    "typescript": "*"
   },
   "scripts": {
     "start": "node app.js",

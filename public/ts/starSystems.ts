@@ -1,5 +1,13 @@
 import { Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from "three";
 
+export type StarRecord = {
+    name: string;
+    type: StellarTypes;
+    position: Vector3;
+    unk?: any;
+    unk2?: any;
+};
+
 export enum StellarTypes {
     GalacticCore = 1,
     BlackHole,
@@ -43,7 +51,7 @@ const MATERIAL_PER_STELLAR = new Map([
 ]);
 
 export default class StarSystemManager {
-    private starRecords: any[] = [];
+    private starRecords: StarRecord[] = [];
     #meshes: Mesh[] = [];
 
     get meshes(): ReadonlyArray<Mesh> {
@@ -56,13 +64,13 @@ export default class StarSystemManager {
         this.#meshes = [];
 
         // Set up star system points geometry
-        const stars = this.starRecords.map((record) => {
+        const stars: StarRecord[] = this.starRecords.map((record) => {
             const position = new Vector3(record.position.x, record.position.y, record.position.z);
             return {
                 name: record.name,
                 position,
                 type: record.type,
-                unk: record.unk2,
+                // unk: record.unk2,
             };
         });
 

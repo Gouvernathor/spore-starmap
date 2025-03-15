@@ -51,7 +51,7 @@ const MATERIAL_PER_STELLAR = new Map([
 ]);
 
 export default class StarSystemManager {
-    private starRecords: StarRecord[] = [];
+    public starRecords: StarRecord[] = [];
     #meshes: Mesh[] = [];
 
     get meshes(): ReadonlyArray<Mesh> {

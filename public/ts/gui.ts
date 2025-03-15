@@ -46,7 +46,11 @@ export default class GuiManager {
 
     private propsPanel = document.getElementById("properties-panel")!;
 
-    private isMouseOnUIPanel = false;
+    #isMouseOnUIPanel = false;
+
+    get isMouseOnUIPanel() {
+        return this.#isMouseOnUIPanel;
+    }
 
     constructor(
         // dependency injection
@@ -99,7 +103,7 @@ export default class GuiManager {
     }
 
     private onPanelMouseEnter(event: MouseEvent) {
-        this.isMouseOnUIPanel = true;
+        this.#isMouseOnUIPanel = true;
     }
 
     private onPanelMouseOut(event: MouseEvent) {
@@ -107,7 +111,7 @@ export default class GuiManager {
             // The mouse is entering a child element of the panel, do nothing
             return;
         }
-        this.isMouseOnUIPanel = false;
+        this.#isMouseOnUIPanel = false;
     }
 
     private onWindowFocus(event: FocusEvent) {
@@ -119,14 +123,14 @@ export default class GuiManager {
 
         for (const panel of document.getElementsByClassName("panel")) {
             if (panel.contains(elementUnderMouse)) {
-                this.isMouseOnUIPanel = true;
+                this.#isMouseOnUIPanel = true;
                 return;
             }
         }
-        this.isMouseOnUIPanel = false;
+        this.#isMouseOnUIPanel = false;
     }
 
-    private showLoadingOverlay() {
+    public showLoadingOverlay() {
         this.isLoading = true;
         this.lastLoadingStart = Date.now();
 
@@ -138,7 +142,7 @@ export default class GuiManager {
         loadingOverlay.style.opacity = "1.0";
     }
 
-    private hideLoadingOverlay() {
+    public hideLoadingOverlay() {
         const now = Date.now();
         const loadingDurMs = now - this.lastLoadingStart;
 
@@ -190,13 +194,13 @@ export default class GuiManager {
             data: starRecord,
 
             onClosed: function() {
-                guiManager.isMouseOnUIPanel = false;
+                guiManager.#isMouseOnUIPanel = false;
                 guiManager.panels.delete(starRecord.name);
             },
 
             callback: function(panel: any) {
                 console.log(starRecord);
-                guiManager.isMouseOnUIPanel = true;
+                guiManager.#isMouseOnUIPanel = true;
 
                 // Bind event listeners
                 this.addEventListener("mouseenter", guiManager.onPanelMouseEnter.bind(guiManager));
@@ -232,7 +236,7 @@ export default class GuiManager {
         this.panels.add(starRecord.name);
     }
 
-    private update(cursorPos: Vector2, pointedObject: Intersection<Object3D<Object3DEventMap>>|null) {
+    public update(cursorPos: Vector2, pointedObject: Intersection<Object3D<Object3DEventMap>>|null) {
         if (GuiManager.DISABLE_LOADING_SCREEN) {
             this.isLoading = false;
             document.getElementById("loading-overlay")!.style.display = "none";
@@ -260,7 +264,7 @@ export default class GuiManager {
         }
 
         // Check if the mouse is pointing at an object
-        if (this.pointedObject != null && !this.isMouseOnUIPanel) {
+        if (this.pointedObject != null && !this.#isMouseOnUIPanel) {
             // Show tooltip with star name on mouseover
             const starName = (this.pointedObject.object.userData as StarRecord).name;
             this.tooltip.style.visibility = "visible";

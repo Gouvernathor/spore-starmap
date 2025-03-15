@@ -6,15 +6,19 @@ function windowRatio() {
 }
 
 export default class SceneManager {
-    private renderer: WebGLRenderer;
-    private scene: Scene;
-    private camera: PerspectiveCamera;
-    private cameraTargetPos: Vector2;
+    private readonly renderer: WebGLRenderer;
+    private readonly scene: Scene;
+    private readonly camera: PerspectiveCamera;
+    private cameraTargetPos: Vector3;
     private isCameraGliding: boolean;
-    private controls: OrbitControls;
-    private raycaster: Raycaster;
+    public readonly controls: OrbitControls;
+    private readonly raycaster: Raycaster;
     private isEnabledRaycasting: boolean;
-    private pointedObject: Intersection<Object3D<Object3DEventMap>>|null = null;
+    #pointedObject: Intersection<Object3D<Object3DEventMap>>|null = null;
+
+    get pointedObject() {
+        return this.#pointedObject;
+    }
 
     constructor() {
         // Setup renderer
@@ -38,7 +42,7 @@ export default class SceneManager {
         this.camera.position.set(10, 50, 10);
         this.camera.updateProjectionMatrix();
 
-        this.cameraTargetPos = new Vector2(); // to glide to a position
+        this.cameraTargetPos = new Vector3(); // to glide to a position
         this.isCameraGliding = false;
 
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -67,7 +71,7 @@ export default class SceneManager {
     /**
      * Add the given meshes to the scene
      */
-    private addMeshes(meshes: Mesh[]) {
+    public addMeshes(meshes: ReadonlyArray<Mesh>) {
         console.log("Populating scene with meshes...");
         for (const mesh of meshes) {
             this.scene.add(mesh);
@@ -80,7 +84,7 @@ export default class SceneManager {
     /**
      * Clears all meshes from the scene
      */
-    private clearMeshes() {
+    public clearMeshes() {
         console.log("Clearing all meshes from scene...");
         for (const child of this.scene.children) {
             if (child instanceof Mesh) {
@@ -96,7 +100,7 @@ export default class SceneManager {
     /**
      * Smoothly move the camera to the given position
      */
-    private glideCameraToPosition(position: Vector2) {
+    public glideCameraToPosition(position: Vector3) {
         this.isCameraGliding = true;
         this.cameraTargetPos = position;
     }
@@ -104,7 +108,7 @@ export default class SceneManager {
     /**
      * Update scene objects
      */
-    private update(isMouseOnUIPanel: boolean) {
+    public update(isMouseOnUIPanel: boolean) {
         // Update camera controls
         this.controls.update();
 
@@ -134,7 +138,7 @@ export default class SceneManager {
     /**
      * Cast ray from camera to pointer to detect stars
      */
-    private raycast(cursorPos: Vector2) {
+    public raycast(cursorPos: Vector2) {
         if (!this.isEnabledRaycasting) {
             return;
         }
@@ -144,16 +148,16 @@ export default class SceneManager {
 
         // If the raycast cursor hits a star system
         if (intersects.length > 0) {
-            this.pointedObject = intersects[0];
+            this.#pointedObject = intersects[0];
         } else {
-            this.pointedObject = null;
+            this.#pointedObject = null;
         }
     }
 
     /**
      * Render a single frame
      */
-    private render() {
+    public render() {
         this.renderer.render(this.scene, this.camera);
     }
 }

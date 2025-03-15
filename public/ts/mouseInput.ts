@@ -2,7 +2,7 @@ import { Vector2 } from "three";
 
 export default class MouseInput {
     private isEnabled = true;
-    private readonly cursor = new Vector2(0, 0);
+    public readonly cursor = new Vector2(0, 0);
 
     private readonly mouseDownPos = new Vector2(0, 0);
     private readonly mouseUpPos = new Vector2(0, 0);

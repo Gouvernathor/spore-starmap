@@ -64,7 +64,9 @@ export default class SceneManager {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
-    // Add the given meshes to the scene
+    /**
+     * Add the given meshes to the scene
+     */
     private addMeshes(meshes: Mesh[]) {
         console.log("Populating scene with meshes...");
         for (const mesh of meshes) {
@@ -75,7 +77,9 @@ export default class SceneManager {
         console.log("Done.");
     }
 
-    // Clears all meshes from the scene
+    /**
+     * Clears all meshes from the scene
+     */
     private clearMeshes() {
         console.log("Clearing all meshes from scene...");
         for (const child of this.scene.children) {
@@ -89,13 +93,17 @@ export default class SceneManager {
         console.log("Done.");
     }
 
-    // Smoothly move the camera to the given position
+    /**
+     * Smoothly move the camera to the given position
+     */
     private glideCameraToPosition(position: Vector2) {
         this.isCameraGliding = true;
         this.cameraTargetPos = position;
     }
 
-    // Update scene objects
+    /**
+     * Update scene objects
+     */
     private update(isMouseOnUIPanel: boolean) {
         // Update camera controls
         this.controls.update();
@@ -123,7 +131,9 @@ export default class SceneManager {
         }
     }
 
-    // Cast ray from camera to pointer to detect stars
+    /**
+     * Cast ray from camera to pointer to detect stars
+     */
     private raycast(cursorPos: Vector2) {
         if (!this.isEnabledRaycasting) {
             return;
@@ -140,7 +150,9 @@ export default class SceneManager {
         }
     }
 
-    // Render a single frame
+    /**
+     * Render a single frame
+     */
     private render() {
         this.renderer.render(this.scene, this.camera);
     }

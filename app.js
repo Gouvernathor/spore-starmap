@@ -1,11 +1,10 @@
-'use strict';
-const express = require('express');
+import express from 'express';
 const app = express();
 const PORT = 4200;
 
-const path = require('path');
+import path from 'path';
 
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(import.meta.dirname, 'public')));
 
 // Redirect root route
 app.get('/', (req, res) => {
@@ -14,7 +13,7 @@ app.get('/', (req, res) => {
 
 // Serve client on /starmap
 app.get('/starmap', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(import.meta.dirname, 'public', 'index.html'));
 });
 
 // Start the server

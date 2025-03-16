@@ -19,8 +19,8 @@
     "typescript": "*"
   },
   "scripts": {
-    "start": "node app.js",
-    "dev": "nodemon app.js",
+    "start": "tsup && node app.js",
+    "dev": "tsup && nodemon app.js",
     "build": "pkg -c package.json app.js"
   },
   "keywords": [

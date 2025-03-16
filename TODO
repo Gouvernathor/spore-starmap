@@ -8,5 +8,6 @@ import three, and optionally OrbitControls and FlyControls, the npm way
 add polar (in-game) coordinates + elevation on star system cards in addition/replacement to the xyz coordinates
 stop rotation when long click
 option (enabled by default) to only show one star panel at a time
+a button to reset the camera to the galaxy center
 
 an archetype/philosophy calculator (and type/data system)

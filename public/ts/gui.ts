@@ -86,8 +86,8 @@ export default class GuiManager {
 
     private bindEventListeners() {
         window.addEventListener("click", this.onWindowClick.bind(this));
-        window.addEventListener("focus", this.onWindowFocus.bind(this));
-        // window.addEventListener("mousemove", this.onWindowMouseMove.bind(this));
+        // window.addEventListener("focus", this.onWindowFocus.bind(this));
+        window.addEventListener("mousemove", this.onWindowMouseMove.bind(this));
     }
 
     /**
@@ -116,8 +116,8 @@ export default class GuiManager {
         this.#isMouseOnUIPanel = false;
     }
 
-    private onWindowFocus(event: FocusEvent) {
-        // this.checkMouseOverUIPanel(event.clientX, event.clientY);
+    private onWindowMouseMove(event: MouseEvent) {
+        this.checkMouseOverUIPanel(event.clientX, event.clientY);
     }
 
     private checkMouseOverUIPanel(x: number, y: number) {
@@ -245,6 +245,7 @@ export default class GuiManager {
         }
 
         // this.checkMouseOverUIPanel(cursorPos.x, cursorPos.y);
+        // cheaper to do this on mousemove : less frequent, less expensive
 
         // Update reference to object currently pointed by the cursor
         this.pointedObject = pointedObject;

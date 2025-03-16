@@ -59,7 +59,7 @@ export default class GuiManager {
         // start hidden
         this.propsPanel.style.visibility = "hidden";
 
-        jsPanel.globalCallbacks = function(panel: Element) {
+        jsPanel.globalCallbacks = (panel: EventTarget) => {
             // Set panel element classes
             jsPanel.setClass(panel, "panel");
             jsPanel.setClass(panel, "blurbg");
@@ -102,12 +102,14 @@ export default class GuiManager {
         }
     }
 
-    private onPanelMouseEnter(event: MouseEvent) {
+    private onPanelMouseEnter() {
         this.#isMouseOnUIPanel = true;
     }
 
-    private onPanelMouseOut(event: MouseEvent) {
-        if (event.relatedTarget instanceof Element && event.relatedTarget.closest(".panel")) {
+    private onPanelMouseOut(event: Event) {
+        if (event instanceof MouseEvent &&
+            event.relatedTarget instanceof Element &&
+            event.relatedTarget.closest(".panel")) {
             // The mouse is entering a child element of the panel, do nothing
             return;
         }

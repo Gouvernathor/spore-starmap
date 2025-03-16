@@ -12,7 +12,10 @@ const starManager = new StarSystemManager();
 
 // Handle uploading file to server when selected
 document.addEventListener("DOMContentLoaded", function(event) {
-    const fileInput = document.getElementById("file-input") as HTMLInputElement;
+    const fileInput = document.getElementById("file-input") as HTMLInputElement|null;
+    if (!fileInput) {
+        return;
+    }
 
     // Clear file input on click
     fileInput.addEventListener("click", function() {

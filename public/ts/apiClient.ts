@@ -36,6 +36,6 @@ export class APIClient {
     }
 }
 
-const API_URL = "https://zackbox.app/api/starmap/";
+const API_URL = "https://zacbox.app/api/starmap/";
 const client = new APIClient(API_URL);
 export default client;

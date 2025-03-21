@@ -10,6 +10,7 @@ export default class SceneManager {
     private readonly scene: Scene;
     private readonly camera: PerspectiveCamera;
     private cameraTargetPos: Vector3;
+    private aimTargetPos: Vector3;
     private isCameraGliding: boolean;
     public readonly controls: OrbitControls;
     private readonly raycaster: Raycaster;
@@ -42,7 +43,9 @@ export default class SceneManager {
         this.cameraPosition.set(10, 50, 10);
         this.camera.updateProjectionMatrix();
 
-        this.cameraTargetPos = new Vector3(); // to glide to a position
+        // to glide to a position
+        this.cameraTargetPos = new Vector3();
+        this.aimTargetPos = new Vector3();
         this.isCameraGliding = false;
 
         this.controls = new OrbitControls(this.camera, this.renderer.domElement);
@@ -97,16 +100,22 @@ export default class SceneManager {
         console.log("Done.");
     }
 
-    public get cameraPosition() {
+    private get cameraPosition() {
         return this.camera.position;
+    }
+    private get aimPosition() {
+        return this.controls.target;
     }
 
     /**
-     * Smoothly move the camera to the given position
+     * Set the position and pointing target the camera will smoothly glide to
      */
-    public glideCameraToPosition(position: Vector3) {
+    public setCameraGlidePositionAndAim(
+        position: Vector3, aim: Vector3, glideSeconds?: number) {
+        // TODO manage the time to glide, use a timestamp instead of a boolean for isCameraGliding
         this.isCameraGliding = true;
         this.cameraTargetPos = position;
+        this.aimTargetPos = aim;
     }
 
     /**
@@ -122,17 +131,20 @@ export default class SceneManager {
         // Disable raycasting if mouse is on a UI panel
         this.isEnabledRaycasting = !isMouseOnUIPanel;
 
-        // Update camera position if gliding to target
+        // Update camera position and aim if gliding to target
         if (this.isCameraGliding) {
             // Disable camera controls while gliding
             this.controls.enabled = false;
 
-            if (this.cameraPosition.distanceTo(this.cameraTargetPos) > .05) {
-                // Lerp camera position towards target
+            if (this.cameraPosition.distanceTo(this.cameraTargetPos) > .02
+              || this.aimPosition.distanceTo(this.aimTargetPos) > .02) {
+                // Lerp towards target
                 this.cameraPosition.lerp(this.cameraTargetPos, .05);
+                this.aimPosition.lerp(this.aimTargetPos, .05);
             } else {
                 // Snap camera to target
                 this.cameraPosition.copy(this.cameraTargetPos);
+                this.aimPosition.copy(this.aimTargetPos);
                 this.isCameraGliding = false;
                 this.controls.enabled = true;
             }

@@ -59,8 +59,8 @@ function renewMeshes(inputStarRecords: InputStarRecord[]) {
 // Setup key input
 document.addEventListener("keydown", function(event) {
     if (event.key === " ") {
-        sceneManager.controls.target.set(0, 0, 0);
-        sceneManager.glideCameraToPosition(new Vector3(10, 50, 10));
+        sceneManager.setCameraGlidePositionAndAim(
+            new Vector3(10, 50, 10), new Vector3(0, 0, 0));
     }
 });
 

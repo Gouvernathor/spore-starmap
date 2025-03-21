@@ -79,30 +79,23 @@ const MATERIAL_PER_STELLAR = new Map([
 
 const GALAXY_INFLATE_FACTOR = 2;
 
-export default class StarSystemManager {
-    #meshes: StarSystemMesh[] = [];
+export default function generateMeshes(inputStarRecords: InputStarRecord[]): StarSystemMesh[] {
+    console.log("Generating star meshes...");
 
-    get meshes(): ReadonlyArray<StarSystemMesh> {
-        return this.#meshes;
-    }
+    const meshes = inputStarRecords.map((record) => {
+        // Set up star system points geometry
+        const position = new Vector3(record.position.x, record.position.y, record.position.z);
+        const material = MATERIAL_PER_STELLAR.get(record.type)!;
+        const mesh = new Mesh(STAR_GEOMETRY, material);
+        mesh.position.set(position.x, position.z * GALAXY_INFLATE_FACTOR, -position.y);
+        mesh.userData = {
+            name: record.name,
+            position,
+            type: record.type,
+        };
+        return mesh as unknown as StarSystemMesh;
+    });
 
-    public generateMeshes(inputStarRecords: InputStarRecord[]) {
-        console.log("Generating star meshes...");
-
-        this.#meshes = inputStarRecords.map((record) => {
-            // Set up star system points geometry
-            const position = new Vector3(record.position.x, record.position.y, record.position.z);
-            const material = MATERIAL_PER_STELLAR.get(record.type)!;
-            const mesh = new Mesh(STAR_GEOMETRY, material);
-            mesh.position.set(position.x, position.z * GALAXY_INFLATE_FACTOR, -position.y);
-            mesh.userData = {
-                name: record.name,
-                position,
-                type: record.type,
-            };
-            return mesh as unknown as StarSystemMesh;
-        });
-
-        console.log("Done.");
-    }
+    console.log("Done.");
+    return meshes;
 }

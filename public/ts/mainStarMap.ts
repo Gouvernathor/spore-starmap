@@ -2,13 +2,12 @@ import apiClient from "./apiClient";
 import MouseInput from "./mouseInput";
 import SceneManager from "./scene";
 import GUIManager from "./gui";
-import StarSystemManager, { InputStarRecord } from "./starSystems";
+import generateMeshes, { InputStarRecord } from "./starSystems";
 import { Vector3 } from "three";
 
 const mouseInput = new MouseInput();
 const sceneManager = new SceneManager();
 const guiManager = new GUIManager((globalThis as any).jsPanel);
-const starManager = new StarSystemManager();
 
 // Handle uploading file to server when selected
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -53,8 +52,8 @@ function uploadStarRecordsFile(file: File) {
 
 function renewMeshes(inputStarRecords: InputStarRecord[]) {
     sceneManager.clearMeshes();
-    starManager.generateMeshes(inputStarRecords);
-    sceneManager.addMeshes(starManager.meshes);
+    const meshes = generateMeshes(inputStarRecords);
+    sceneManager.addMeshes(meshes);
 }
 
 // Setup key input

@@ -50,6 +50,8 @@ const MATERIAL_PER_STELLAR = new Map([
     [StellarTypes.GalacticCore, MATERIALS.whiteStar],
 ]);
 
+const GALAXY_INFLATE_FACTOR = 2;
+
 export default class StarSystemManager {
     public starRecords: StarRecord[] = [];
     #meshes: Mesh[] = [];
@@ -78,7 +80,7 @@ export default class StarSystemManager {
             const material = MATERIAL_PER_STELLAR.get(star.type)!;
 
             const mesh = new Mesh(STAR_GEOMETRY, material);
-            mesh.position.set(star.position.x, star.position.z * 2, -star.position.y);
+            mesh.position.set(star.position.x, star.position.z * GALAXY_INFLATE_FACTOR, -star.position.y);
             mesh.userData = star;
             return mesh;
         });

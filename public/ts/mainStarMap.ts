@@ -52,9 +52,8 @@ function uploadStarRecordsFile(file: File) {
 }
 
 function renewMeshes(inputStarRecords: InputStarRecord[]) {
-    starManager.starRecords = inputStarRecords;
     sceneManager.clearMeshes();
-    starManager.generateMeshes();
+    starManager.generateMeshes(inputStarRecords);
     sceneManager.addMeshes(starManager.meshes);
 }
 

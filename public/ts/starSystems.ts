@@ -80,17 +80,16 @@ const MATERIAL_PER_STELLAR = new Map([
 const GALAXY_INFLATE_FACTOR = 2;
 
 export default class StarSystemManager {
-    public starRecords: InputStarRecord[] = [];
     #meshes: StarSystemMesh[] = [];
 
     get meshes(): ReadonlyArray<StarSystemMesh> {
         return this.#meshes;
     }
 
-    public generateMeshes() {
+    public generateMeshes(inputStarRecords: InputStarRecord[]) {
         console.log("Generating star meshes...");
 
-        this.#meshes = this.starRecords.map((record) => {
+        this.#meshes = inputStarRecords.map((record) => {
             // Set up star system points geometry
             const position = new Vector3(record.position.x, record.position.y, record.position.z);
             const material = MATERIAL_PER_STELLAR.get(record.type)!;

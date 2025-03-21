@@ -31,9 +31,6 @@ export type StarRecord = {
     unk?: any;
     unk2?: any;
 };
-interface StarSystemMesh extends Mesh {
-    userData: StarRecord;
-}
 
 export enum StellarTypes {
     GalacticCore = 1,
@@ -79,7 +76,7 @@ const MATERIAL_PER_STELLAR = new Map([
 
 const GALAXY_INFLATE_FACTOR = 2;
 
-export default function generateMeshes(inputStarRecords: InputStarRecord[]): StarSystemMesh[] {
+export default function generateMeshes(inputStarRecords: InputStarRecord[]) {
     console.log("Generating star meshes...");
 
     const meshes = inputStarRecords.map((record) => {
@@ -93,7 +90,7 @@ export default function generateMeshes(inputStarRecords: InputStarRecord[]): Sta
             position,
             type: record.type,
         };
-        return mesh as unknown as StarSystemMesh;
+        return mesh;
     });
 
     console.log("Done.");

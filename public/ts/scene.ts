@@ -127,7 +127,7 @@ export default class SceneManager {
             // Disable camera controls while gliding
             this.controls.enabled = false;
 
-            if (this.cameraPosition.distanceTo(this.cameraTargetPos) > 1) {
+            if (this.cameraPosition.distanceTo(this.cameraTargetPos) > .05) {
                 // Lerp camera position towards target
                 this.cameraPosition.lerp(this.cameraTargetPos, .05);
             } else {

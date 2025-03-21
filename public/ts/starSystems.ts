@@ -1,5 +1,29 @@
 import { Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from "three";
 
+type InputStarRecord = {
+    starKey?: number;
+    position: {
+        x: number;
+        y: number;
+        z: number;
+    };
+    flags?: number;
+    name: string;
+    type: StellarTypes;
+    planetCount?: number;
+
+    unk1?: number;
+    unk2?: number;
+    unk3?: number;
+    unk4?: number;
+    unk5?: number;
+    unk6?: number;
+    unk7?: number;
+    unk8?: number;
+    unk9?: number;
+    unk10?: number;
+}
+
 export type StarRecord = {
     name: string;
     type: StellarTypes;
@@ -53,7 +77,7 @@ const MATERIAL_PER_STELLAR = new Map([
 const GALAXY_INFLATE_FACTOR = 2;
 
 export default class StarSystemManager {
-    public starRecords: StarRecord[] = [];
+    public starRecords: InputStarRecord[] = [];
     #meshes: Mesh[] = [];
 
     get meshes(): ReadonlyArray<Mesh> {

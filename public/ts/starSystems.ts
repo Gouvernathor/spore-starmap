@@ -31,6 +31,9 @@ export type StarRecord = {
     unk?: any;
     unk2?: any;
 };
+interface StarSystemMesh extends Mesh {
+    userData: StarRecord;
+}
 
 export enum StellarTypes {
     GalacticCore = 1,
@@ -78,9 +81,9 @@ const GALAXY_INFLATE_FACTOR = 2;
 
 export default class StarSystemManager {
     public starRecords: InputStarRecord[] = [];
-    #meshes: Mesh[] = [];
+    #meshes: StarSystemMesh[] = [];
 
-    get meshes(): ReadonlyArray<Mesh> {
+    get meshes(): ReadonlyArray<StarSystemMesh> {
         return this.#meshes;
     }
 
@@ -98,7 +101,7 @@ export default class StarSystemManager {
                 position,
                 type: record.type,
             };
-            return mesh;
+            return mesh as unknown as StarSystemMesh;
         });
 
         console.log("Done.");

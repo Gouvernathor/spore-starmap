@@ -63,25 +63,17 @@ export default class StarSystemManager {
     public generateMeshes() {
         console.log("Generating star meshes...");
 
-        this.#meshes = [];
-
-        // Set up star system points geometry
-        const stars: StarRecord[] = this.starRecords.map((record) => {
+        this.#meshes = this.starRecords.map((record) => {
+            // Set up star system points geometry
             const position = new Vector3(record.position.x, record.position.y, record.position.z);
-            return {
+            const material = MATERIAL_PER_STELLAR.get(record.type)!;
+            const mesh = new Mesh(STAR_GEOMETRY, material);
+            mesh.position.set(position.x, position.z * GALAXY_INFLATE_FACTOR, -position.y);
+            mesh.userData = {
                 name: record.name,
                 position,
                 type: record.type,
-                // unk: record.unk2,
             };
-        });
-
-        this.#meshes = stars.map((star) => {
-            const material = MATERIAL_PER_STELLAR.get(star.type)!;
-
-            const mesh = new Mesh(STAR_GEOMETRY, material);
-            mesh.position.set(star.position.x, star.position.z * GALAXY_INFLATE_FACTOR, -star.position.y);
-            mesh.userData = star;
             return mesh;
         });
 

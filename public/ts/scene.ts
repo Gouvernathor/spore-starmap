@@ -110,9 +110,7 @@ export default class SceneManager {
     /**
      * Set the position and pointing target the camera will smoothly glide to
      */
-    public setCameraGlidePositionAndAim(
-        position: Vector3, aim: Vector3, glideSeconds?: number) {
-        // TODO manage the time to glide, use a timestamp instead of a boolean for isCameraGliding
+    public setCameraGlidePositionAndAim(position: Vector3, aim: Vector3) {
         this.isCameraGliding = true;
         this.cameraTargetPos = position;
         this.aimTargetPos = aim;

@@ -39,7 +39,7 @@ export default class SceneManager {
 
         // Setup camera & orbitcontrols
         this.camera = new PerspectiveCamera(75, windowRatio(), .1, 3500);
-        this.camera.position.set(10, 50, 10);
+        this.cameraPosition.set(10, 50, 10);
         this.camera.updateProjectionMatrix();
 
         this.cameraTargetPos = new Vector3(); // to glide to a position
@@ -95,6 +95,10 @@ export default class SceneManager {
         }
         this.scene.updateMatrixWorld();
         console.log("Done.");
+    }
+
+    public get cameraPosition() {
+        return this.camera.position;
     }
 
     /**

@@ -15,11 +15,11 @@ const SUBTITLE_BY_STELLAR_TYPE = new Map([
     [StellarTypes.BinaryGM, "Yellow-red binary system"],
     [StellarTypes.BinaryMM, "Red-red binary system"],
 ]);
+const DISABLE_LOADING_SCREEN = false;
 
 const jsPanel = (globalThis as any).jsPanel;
 
 export default class GuiManager {
-    public static readonly DISABLE_LOADING_SCREEN = false;
     public static readonly JSPANEL_CONFIG = {
         position: "left-top",
         snap: true,
@@ -238,7 +238,7 @@ export default class GuiManager {
     }
 
     public update(cursorPos: Vector2, pointedObject: Intersection<Object3D<Object3DEventMap>>|null) {
-        if (GuiManager.DISABLE_LOADING_SCREEN) {
+        if (DISABLE_LOADING_SCREEN) {
             this.isLoading = false;
             document.getElementById("loading-overlay")!.style.display = "none";
         }

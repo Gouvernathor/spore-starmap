@@ -123,12 +123,12 @@ export default class SceneManager {
             // Disable camera controls while gliding
             this.controls.enabled = false;
 
-            const targetPos3D = new Vector3(...this.cameraTargetPos, 0);
-
-            // Lerp camera position towards target
-            this.camera.position.lerp(targetPos3D, .05);
-
-            if (this.camera.position.distanceTo(targetPos3D) < 1) {
+            if (this.cameraPosition.distanceTo(this.cameraTargetPos) > 1) {
+                // Lerp camera position towards target
+                this.cameraPosition.lerp(this.cameraTargetPos, .05);
+            } else {
+                // Snap camera to target
+                this.cameraPosition.copy(this.cameraTargetPos);
                 this.isCameraGliding = false;
                 this.controls.enabled = true;
             }

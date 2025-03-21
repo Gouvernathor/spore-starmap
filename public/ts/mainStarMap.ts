@@ -7,7 +7,7 @@ import { Vector3 } from "three";
 
 const mouseInput = new MouseInput();
 const sceneManager = new SceneManager();
-const guiManager = new GUIManager((globalThis as any).jsPanel);
+const guiManager = new GUIManager();
 
 // Handle uploading file to server when selected
 document.addEventListener("DOMContentLoaded", function(event) {
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
     // Upload file when selected
     fileInput.addEventListener("change", function(event) {
         if (fileInput.files?.length) {
-            const [file, ..._] = fileInput.files;
+            const file = fileInput.files.item(0)!;
 
             console.log("Uploading file " + file.name);
 

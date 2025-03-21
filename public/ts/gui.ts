@@ -16,6 +16,8 @@ const SUBTITLE_BY_STELLAR_TYPE = new Map([
     [StellarTypes.BinaryMM, "Red-red binary system"],
 ]);
 
+const jsPanel = (globalThis as any).jsPanel;
+
 export default class GuiManager {
     public static readonly DISABLE_LOADING_SCREEN = false;
     public static readonly JSPANEL_CONFIG = {
@@ -52,10 +54,7 @@ export default class GuiManager {
         return this.#isMouseOnUIPanel;
     }
 
-    constructor(
-        // dependency injection
-        private readonly jsPanel: any,
-    ) {
+    constructor() {
         // start hidden
         this.propsPanel.style.visibility = "hidden";
 
@@ -166,7 +165,7 @@ export default class GuiManager {
     }
 
     private createFileUploadPanel() {
-        this.jsPanel.create({
+        jsPanel.create({
             config: GuiManager.JSPANEL_CONFIG,
             snap: true,
             headerTitle: "StarMap",
@@ -184,7 +183,7 @@ export default class GuiManager {
         }
 
         const guiManager = this;
-        this.jsPanel.create({
+        jsPanel.create({
             config: GuiManager.JSPANEL_CONFIG,
 
             position: {

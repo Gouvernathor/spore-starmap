@@ -54,6 +54,10 @@ export default class GuiManager {
         return this.#isMouseOnUIPanel;
     }
 
+    get pointedStarRecord() {
+        return this.pointedObject?.object.userData as StarRecord;
+    }
+
     constructor() {
         // start hidden
         this.propsPanel.style.visibility = "hidden";
@@ -93,9 +97,9 @@ export default class GuiManager {
      * Mouse click event handler
      */
     private onWindowClick(event: MouseEvent) {
-        if (this.pointedObject != null) {
-            const starRecord = this.pointedObject.object.userData;
-            this.createStarPropsPanel(starRecord as StarRecord,
+        const pointedStarRecord = this.pointedStarRecord;
+        if (pointedStarRecord) {
+            this.createStarPropsPanel(pointedStarRecord,
                 event.x - window.innerWidth/2,
                 event.y - window.innerHeight/2);
         }
@@ -249,6 +253,8 @@ export default class GuiManager {
         // Update reference to object currently pointed by the cursor
         this.pointedObject = pointedObject;
 
+        const pointedStarRecord = this.pointedStarRecord;
+
         // Update spinner text if loading
         if (this.isLoading) {
             const now = Date.now();
@@ -266,9 +272,9 @@ export default class GuiManager {
         }
 
         // Check if the mouse is pointing at an object
-        if (this.pointedObject != null && !this.#isMouseOnUIPanel) {
+        if (pointedStarRecord && !this.#isMouseOnUIPanel) {
             // Show tooltip with star name on mouseover
-            const starName = (this.pointedObject.object.userData as StarRecord).name;
+            const starName = pointedStarRecord.name;
             this.tooltip.style.visibility = "visible";
 
             // Set tooltip position to upper-right of the star

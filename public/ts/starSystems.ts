@@ -1,6 +1,6 @@
 import { Mesh, MeshBasicMaterial, SphereGeometry, Vector3 } from "three";
 
-type InputStarRecord = {
+export type InputStarRecord = {
     starKey?: number;
     position: {
         x: number;

@@ -2,7 +2,7 @@ import apiClient from "./apiClient";
 import MouseInput from "./mouseInput";
 import SceneManager from "./scene";
 import GUIManager from "./gui";
-import StarSystemManager from "./starSystems";
+import StarSystemManager, { InputStarRecord } from "./starSystems";
 import { Vector3 } from "three";
 
 const mouseInput = new MouseInput();
@@ -42,8 +42,7 @@ function uploadStarRecordsFile(file: File) {
     formData.append("file", file);
     apiClient.post("upload-stars-db", formData)
         .then((response) => {
-            starManager.starRecords = response.data;
-            renewMeshes();
+            renewMeshes(response.data);
             guiManager.hideLoadingOverlay();
         })
         .catch((error) => {
@@ -52,7 +51,8 @@ function uploadStarRecordsFile(file: File) {
         });
 }
 
-function renewMeshes() {
+function renewMeshes(inputStarRecords: InputStarRecord[]) {
+    starManager.starRecords = inputStarRecords;
     sceneManager.clearMeshes();
     starManager.generateMeshes();
     sceneManager.addMeshes(starManager.meshes);
@@ -68,8 +68,7 @@ document.addEventListener("keydown", function(event) {
 
 // Request sample star records and set up meshes in scene manager
 guiManager.showLoadingOverlay();
-starManager.starRecords = (await apiClient.get("get-example-stars")).data;
-renewMeshes();
+renewMeshes((await apiClient.get("get-example-stars")).data);
 guiManager.hideLoadingOverlay();
 
 

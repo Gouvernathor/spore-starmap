@@ -71,10 +71,15 @@ export default class SceneManager {
         this.renderer.setSize(window.innerWidth, window.innerHeight);
     }
 
+    public replaceMeshes(meshes: ReadonlyArray<Mesh>) {
+        this.clearMeshes();
+        this.addMeshes(meshes);
+    }
+
     /**
      * Add the given meshes to the scene
      */
-    public addMeshes(meshes: ReadonlyArray<Mesh>) {
+    private addMeshes(meshes: ReadonlyArray<Mesh>) {
         console.log("Populating scene with meshes...");
         for (const mesh of meshes) {
             this.scene.add(mesh);
@@ -87,7 +92,7 @@ export default class SceneManager {
     /**
      * Clears all meshes from the scene
      */
-    public clearMeshes() {
+    private clearMeshes() {
         console.log("Clearing all meshes from scene...");
         for (const child of this.scene.children) {
             if (child instanceof Mesh) {

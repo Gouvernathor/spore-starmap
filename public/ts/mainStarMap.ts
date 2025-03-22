@@ -54,9 +54,8 @@ function uploadStarRecordsFile(file: File) {
 }
 
 function renewMeshes(inputStarRecords: InputStarRecord[]) {
-    sceneManager.clearMeshes();
     const meshes = generateMeshes(inputStarRecords);
-    sceneManager.addMeshes(meshes);
+    sceneManager.replaceMeshes(meshes);
 }
 
 // Setup key input

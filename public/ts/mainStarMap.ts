@@ -64,9 +64,11 @@ document.addEventListener("keydown", function(event) {
     }
 });
 
-// Request sample star records and set up meshes in scene manager
+// Import sample star records (without keeping it in memory)
+// and set up meshes in scene manager
 guiManager.showLoadingOverlay();
-renewMeshes((await apiClient.get("get-example-stars")).data);
+// (await apiClient.get("get-example-stars")).data
+renewMeshes((await import("../example_stars.json")).default as InputStarRecord[]);
 guiManager.hideLoadingOverlay();
 
 

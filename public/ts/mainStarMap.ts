@@ -1,4 +1,4 @@
-import apiClient from "./apiClient";
+import APIClient from "./apiClient";
 import MouseInput from "./mouseInput";
 import SceneManager from "./scene";
 import GUIManager from "./gui";
@@ -8,6 +8,9 @@ import { Vector3 } from "three";
 const mouseInput = new MouseInput();
 const sceneManager = new SceneManager();
 const guiManager = new GUIManager();
+
+const API_URL = "https://zacbox.app/api/starmap/";
+const apiClient = new APIClient(API_URL);
 
 // Handle uploading file to server when selected
 document.addEventListener("DOMContentLoaded", function(event) {

@@ -1,4 +1,4 @@
-export class APIClient {
+export default class APIClient {
     constructor(
         public readonly baseURL: string,
     ) {}
@@ -35,7 +35,3 @@ export class APIClient {
         })).json();
     }
 }
-
-const API_URL = "https://zacbox.app/api/starmap/";
-const client = new APIClient(API_URL);
-export default client;

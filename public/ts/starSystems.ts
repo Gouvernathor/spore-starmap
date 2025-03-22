@@ -76,9 +76,12 @@ const MATERIAL_PER_STELLAR = new Map([
 
 const GALAXY_INFLATE_FACTOR = 2;
 
+let lastInputStarRecords: InputStarRecord[] = [];
+
 export default function generateMeshes(inputStarRecords: InputStarRecord[]) {
     console.log("Generating star meshes...");
 
+    // lastInputStarRecords = inputStarRecords;
     const meshes = inputStarRecords.map((record) => {
         // Set up star system points geometry
         const position = new Vector3(record.position.x, record.position.y, record.position.z);
